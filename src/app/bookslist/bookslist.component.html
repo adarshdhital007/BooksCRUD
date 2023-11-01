@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Books List</h1>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let book of books; let i = index" [class.active]="i === currentIndex" (click)="setActiveBook(book, i)">
+            {{ book.title }}
+          </li>
+        </ul>
+        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllBooks()">Remove All</button>
+      </div>
+      <div class="col-md-8">
+        <app-booksdetails [viewMode]="true" [currentBook]="currentBook"></app-booksdetails>
+      </div>
+    </div>
+  </div>
+  

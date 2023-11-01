@@ -1,0 +1,36 @@
+<div class="book-details-container">
+  <div *ngIf="viewMode; else editable">
+    <div *ngIf="currentBook.id">
+      <h1>{{ currentBook.title }}</h1>
+      <p class="description"><strong>Description:</strong> {{ currentBook.description }}</p>
+      <p class="status"><strong>Status:</strong> {{ currentBook.published ? "Published" : "Pending" }}</p>
+      <a class="btn btn-warning edit-button" routerLink="/books/{{ currentBook.id }}">Edit</a>
+    </div>
+    <div *ngIf="!currentBook.id" class="no-book-selected">
+      <p>No book selected. Click on a book to view its details.</p>
+    </div>
+  </div>
+
+  <ng-template #editable>
+    <div *ngIf="currentBook.id" class="edit-form">
+      <h1>Edit Book</h1>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="currentBook.title" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" [(ngModel)]="currentBook.description"></textarea>
+      </div>
+      <p class="status"><strong>Status:</strong> {{ currentBook.published ? "Published" : "Pending" }}</p>
+      <button class="btn btn-primary" *ngIf="currentBook.published" (click)="updatePublished(false)">Unpublish</button>
+      <button class="btn btn-primary" *ngIf="!currentBook.published" (click)="updatePublished(true)">Publish</button>
+      <button class="btn btn-danger delete-button" (click)="deleteBook()">Delete</button>
+      <button class="btn btn-primary update-button" (click)="updateBook()">Update</button>
+      <p class="message">{{ message }}</p>
+    </div>
+    <div *ngIf="!currentBook.id" class="unable-to-access">
+      <p>Unable to access this book.</p>
+    </div>
+  </ng-template>
+</div>
